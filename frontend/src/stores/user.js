@@ -8,25 +8,25 @@ export const useUserStore = defineStore('user', {
     token: localStorage.getItem('token') || '',
     userInfo: null
   }),
-  
+
   getters: {
-    isLoggedIn: (state) => !!state.token
+    isLoggedIn: (state) => !!state.token,
+    role: (state) => state.userInfo?.role || '',
+    isResident: (state) => state.userInfo?.role === 'RESIDENT',
+    isDoctor: (state) => state.userInfo?.role === 'DOCTOR',
+    isAdmin: (state) => state.userInfo?.role === 'ADMIN'
   },
-  
+
   actions: {
     async login(loginForm) {
-      try {
-        const res = await loginApi(loginForm)
-        this.token = res.data.token
-        this.userInfo = res.data.user
-        localStorage.setItem('token', this.token)
-        ElMessage.success('登录成功')
-        router.push('/')
-      } catch (error) {
-        throw error
-      }
+      const res = await loginApi(loginForm)
+      this.token = res.data.token
+      this.userInfo = res.data.user
+      localStorage.setItem('token', this.token)
+      ElMessage.success('登录成功')
+      router.push('/')
     },
-    
+
     async getUserInfo() {
       try {
         const res = await getCurrentUser()
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', {
         this.logout()
       }
     },
-    
+
     logout() {
       this.token = ''
       this.userInfo = null

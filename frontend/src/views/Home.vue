@@ -1,33 +1,15 @@
 <template>
   <div class="home-container">
-    <el-card>
+    <ResidentDashboard v-if="userStore.isResident" />
+    <DoctorDashboard v-else-if="userStore.isDoctor" />
+    <el-card v-else>
       <template #header>
-        <div class="card-header">
-          <span>欢迎回来</span>
-        </div>
+        <div class="card-header"><span>欢迎回来</span></div>
       </template>
       <div class="welcome">
-        <h2>{{ userStore.userInfo?.username }}</h2>
-        <p>这是用户管理系统的首页</p>
-        <el-descriptions :column="2" border style="margin-top: 20px">
-          <el-descriptions-item label="用户名">
-            {{ userStore.userInfo?.username }}
-          </el-descriptions-item>
-          <el-descriptions-item label="邮箱">
-            {{ userStore.userInfo?.email || '未设置' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="手机号">
-            {{ userStore.userInfo?.phone || '未设置' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="状态">
-            <el-tag :type="userStore.userInfo?.status === 1 ? 'success' : 'danger'">
-              {{ userStore.userInfo?.status === 1 ? '启用' : '禁用' }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="注册时间" :span="2">
-            {{ userStore.userInfo?.createTime }}
-          </el-descriptions-item>
-        </el-descriptions>
+        <h2>{{ userStore.userInfo?.realName || userStore.userInfo?.username }}</h2>
+        <p>当前角色：管理员</p>
+        <el-button type="primary" @click="$router.push('/users')">进入用户管理</el-button>
       </div>
     </el-card>
   </div>
@@ -35,13 +17,16 @@
 
 <script setup>
 import { useUserStore } from '@/stores/user'
+import ResidentDashboard from '@/views/resident/ResidentDashboard.vue'
+import DoctorDashboard from '@/views/doctor/DoctorDashboard.vue'
 
 const userStore = useUserStore()
 </script>
 
 <style scoped>
 .home-container {
-  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .welcome {
@@ -55,5 +40,6 @@ const userStore = useUserStore()
 
 .welcome p {
   color: #909399;
+  margin-bottom: 16px;
 }
 </style>

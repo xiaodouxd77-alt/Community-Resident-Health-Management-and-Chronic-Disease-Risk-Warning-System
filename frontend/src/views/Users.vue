@@ -24,6 +24,9 @@
       <el-table :data="tableData" style="width: 100%" v-loading="loading">
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="username" label="用户名" width="150" />
+        <el-table-column prop="realName" label="姓名" width="120">
+          <template #default="{ row }">{{ row.realName || '-' }}</template>
+        </el-table-column>
         <el-table-column prop="email" label="邮箱" width="200" />
         <el-table-column prop="phone" label="手机号" width="150" />
         <el-table-column prop="status" label="状态" width="100">

@@ -11,6 +11,7 @@ import com.cdvtc.demo.vo.LoginResponse;
 import com.cdvtc.demo.vo.UserVO;
 import com.cdvtc.demo.dto.*;
 import com.cdvtc.demo.entity.User;
+import com.cdvtc.demo.enums.RoleEnum;
 import com.cdvtc.demo.mapper.UserMapper;
 import com.cdvtc.demo.util.JwtUtil;
 import com.cdvtc.demo.vo.*;
@@ -44,7 +45,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
             throw new RuntimeException("账号已被禁用");
         }
 
-        String token = jwtUtil.generateToken(user.getUsername());
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
         UserVO userVO = convertToVO(user);
 
         return new LoginResponse(token, userVO);
@@ -66,6 +67,8 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         user.setEmail(request.getEmail());
         user.setPhone(request.getPhone());
         user.setStatus(1);
+        // 注册接口固定创建居民角色，不允许用户自行指定 DOCTOR/ADMIN
+        user.setRole(RoleEnum.RESIDENT.name());
 
         save(user);
     }
