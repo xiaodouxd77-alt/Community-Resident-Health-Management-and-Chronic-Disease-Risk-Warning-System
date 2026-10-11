@@ -1,9 +1,9 @@
 <template>
   <div class="page-container">
-    <el-card>
-      <template #header><span>我的异常预警</span></template>
+    <PageHeader title="我的异常预警" description="查看由健康指标触发的异常预警及社区医生的处理意见。" />
 
-      <div class="filters">
+    <el-card>
+      <FilterBar>
         <el-select v-model="query.status" placeholder="全部状态" clearable style="width: 150px">
           <el-option v-for="s in ALERT_STATUSES" :key="s.value" :label="s.label" :value="s.value" />
         </el-select>
@@ -12,7 +12,7 @@
         </el-select>
         <el-button type="primary" :icon="Search" @click="handleSearch">查询</el-button>
         <el-button :icon="Refresh" @click="handleReset">重置</el-button>
-      </div>
+      </FilterBar>
 
       <el-table
         v-loading="loading"
@@ -66,6 +66,8 @@ import { useRouter } from 'vue-router'
 import { Search, Refresh } from '@element-plus/icons-vue'
 import { getMyAlerts } from '@/api/health'
 import { ALERT_STATUSES, RISK_LEVELS, riskTag, statusTag, formatIndicatorValue } from '@/utils/labels'
+import PageHeader from '@/components/PageHeader.vue'
+import FilterBar from '@/components/FilterBar.vue'
 
 const router = useRouter()
 const loading = ref(false)
@@ -110,13 +112,6 @@ onMounted(load)
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.filters {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
 }
 
 .pager {

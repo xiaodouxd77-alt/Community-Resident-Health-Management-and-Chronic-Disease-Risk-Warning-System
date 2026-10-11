@@ -71,6 +71,36 @@ const routes = [
         component: () => import('@/views/resident/ChronicList.vue'),
         meta: { roles: RESIDENT }
       },
+      {
+        path: '/resident/followups',
+        name: 'MyFollowups',
+        component: () => import('@/views/resident/FollowupList.vue'),
+        meta: { roles: RESIDENT }
+      },
+      {
+        path: '/resident/interventions',
+        name: 'MyInterventions',
+        component: () => import('@/views/resident/MyIntervention.vue'),
+        meta: { roles: RESIDENT }
+      },
+      {
+        path: '/resident/consultations',
+        name: 'MyConsultations',
+        component: () => import('@/views/resident/ConsultationList.vue'),
+        meta: { roles: RESIDENT }
+      },
+      {
+        path: '/resident/knowledge',
+        name: 'HealthKnowledge',
+        component: () => import('@/views/resident/HealthKnowledge.vue'),
+        meta: { roles: RESIDENT }
+      },
+      {
+        path: '/resident/notices',
+        name: 'NoticeBoard',
+        component: () => import('@/views/resident/NoticeBoard.vue'),
+        meta: { roles: RESIDENT }
+      },
       // 医生端
       {
         path: '/doctor/alerts',
@@ -107,6 +137,73 @@ const routes = [
         name: 'GroupManage',
         component: () => import('@/views/doctor/GroupManage.vue'),
         meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/followups/workbench',
+        name: 'FollowupWorkbench',
+        component: () => import('@/views/doctor/FollowupWorkbench.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/followups',
+        name: 'FollowupManage',
+        component: () => import('@/views/doctor/FollowupManage.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/followups/plan/:id',
+        name: 'FollowupDetail',
+        component: () => import('@/views/doctor/FollowupDetail.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/interventions',
+        name: 'InterventionManage',
+        component: () => import('@/views/doctor/InterventionManage.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/interventions/:id',
+        name: 'InterventionDetail',
+        component: () => import('@/views/doctor/InterventionDetail.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/high-risk-residents',
+        name: 'HighRiskResident',
+        component: () => import('@/views/doctor/HighRiskResident.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/statistics',
+        name: 'DoctorStatistics',
+        component: () => import('@/views/doctor/StatisticsDashboard.vue'),
+        meta: { roles: DOCTOR }
+      },
+      {
+        path: '/doctor/consultations',
+        name: 'ConsultationWorkbench',
+        component: () => import('@/views/doctor/ConsultationWorkbench.vue'),
+        meta: { roles: DOCTOR }
+      },
+      // 管理端统计
+      {
+        path: '/admin/statistics',
+        name: 'AdminStatistics',
+        component: () => import('@/views/admin/Statistics.vue'),
+        meta: { roles: ADMIN }
+      },
+      {
+        path: '/admin/articles',
+        name: 'AdminArticles',
+        component: () => import('@/views/admin/ArticleManage.vue'),
+        meta: { roles: ADMIN }
+      },
+      {
+        path: '/admin/notices',
+        name: 'AdminNotices',
+        component: () => import('@/views/admin/NoticeManage.vue'),
+        meta: { roles: ADMIN }
       },
       // 管理端（沿用原有用户管理）
       {
